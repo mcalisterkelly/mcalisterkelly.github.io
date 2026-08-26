@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's The Move?</title>
+<style>
+:root{--pink:#ff4f9a;--pink2:#ff79b5;--bg:#08090d;--card:#11131a;--muted:#9b9eaa;--line:#292c36}
+*{box-sizing:border-box} body{margin:0;background:#05060a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:480px;margin:auto;min-height:100vh;background:radial-gradient(circle at 50% 0,#24111c 0,#08090d 35%);padding-bottom:90px}
+header{padding:28px 22px 12px;text-align:center}.logo{font-size:34px;font-weight:900;font-style:italic;color:var(--pink);line-height:.95}.tag{font-size:11px;letter-spacing:3px;color:#ddd;margin-top:10px}
+.hero{padding:18px 22px}.hero h1{font-size:40px;line-height:.95;margin:0 0 10px;font-weight:900}.hero h1 span{color:var(--pink)}.hero p{color:#c7c8ce}
+.panel{margin:0 16px;padding:18px;background:rgba(17,19,26,.92);border:1px solid var(--line);border-radius:26px;box-shadow:0 15px 50px #0008}
+label{display:block;font-weight:800;margin:18px 0 9px}.input{display:flex;align-items:center;gap:10px;background:#0b0d12;border:1px solid #353844;border-radius:16px;padding:14px;color:#bbb}.input input{width:100%;background:none;border:0;outline:0;color:white;font-size:16px}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.options button{background:#0c0e14;color:#eee;border:1px solid #383b46;border-radius:15px;padding:13px 8px;font-weight:700}.options button.active{border-color:var(--pink);background:#301322;color:#fff;box-shadow:0 0 0 1px var(--pink) inset}
+.find{width:100%;border:0;border-radius:18px;padding:17px;margin-top:22px;background:linear-gradient(90deg,var(--pink),#ff6cad);font-size:18px;font-weight:900;color:#130711}
+.results{display:none;padding:16px}.results.show{display:block}.back{background:none;border:0;color:#fff;font-size:16px;margin-bottom:12px}.chips{display:flex;gap:7px;overflow:auto}.chip{white-space:nowrap;background:#151821;border:1px solid #30333e;border-radius:99px;padding:8px 11px;font-size:12px}
+.card{margin-top:14px;background:#11131a;border:1px solid var(--line);border-radius:20px;padding:15px}.num{display:inline-grid;place-items:center;width:30px;height:30px;background:var(--pink);color:#160812;border-radius:50%;font-weight:900}.card h3{display:inline;margin-left:8px}.card .place{font-size:21px;font-weight:850;margin:12px 0 5px}.meta{color:#bbb;font-size:13px}.price{color:var(--pink);font-weight:800;margin-top:7px}.summary{margin-top:14px;background:#171923;border-radius:18px;padding:15px;display:flex;justify-content:space-between}.total{color:var(--pink);font-size:22px;font-weight:900}.action{width:100%;margin-top:10px;padding:15px;border-radius:16px;font-weight:900}.primary{background:var(--pink);border:0}.secondary{background:transparent;color:#fff;border:1px solid var(--pink)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:flex;justify-content:space-around;background:#08090dee;border-top:1px solid #262832;padding:12px 4px 16px;backdrop-filter:blur(12px)}nav span{font-size:11px;color:#888;text-align:center}nav .on{color:var(--pink)}
+.small{font-size:12px;color:#999;margin-top:12px;text-align:center}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">What's The Move? ♥</div><div class="tag">DATES • FOOD • GOOD TIMES</div></header>
+
+<section id="home">
+<div class="hero"><h1>Tell us your vibe.<br><span>We'll find the move.</span></h1><p>Restaurants, activities and complete date plans — all in one place.</p></div>
+<div class="panel">
+<label>📍 Where are you?</label>
+<div class="input">📍 <input id="location" placeholder="Enter city, state or ZIP" value="Charlotte, NC"></div>
+<label>♥ What's the vibe?</label>
+<div class="options" id="vibes">
+<button class="active">💕 Romantic</button><button>🍸 Grown & Sexy</button><button>😂 Fun</button><button>🎉 Turn Up</button><button>🌿 Chill</button><button>💸 Cheap/Free</button><button>✨ Surprise Me</button>
+</div>
+<label>💰 What's your budget?</label>
+<div class="options" id="budgets"><button>$0–$25</button><button>$25–$50</button><button class="active">$50–$100</button><button>$100+</button></div>
+<button class="find" onclick="showResults()">🔥 FIND MY MOVE →</button>
+</div>
+</section>
+
+<section id="results" class="results">
+<button class="back" onclick="showHome()">← Back</button>
+<h1>WE FOUND<br><span style="color:var(--pink)">YOUR MOVE!</span></h1>
+<div class="chips"><span class="chip" id="locChip">📍 Charlotte, NC</span><span class="chip">💕 Romantic</span><span class="chip">💵 $50–$100</span></div>
+<p style="color:#bbb">A complete date plan, all within about 12 minutes.</p>
+
+<div class="card"><span class="num">1</span><h3>DINNER</h3><div class="place">The Melting Pot</div><div class="meta">Fondue • Romantic • ⭐ 4.6</div><div class="price">$$$ • about $50–$75/person</div></div>
+<div class="card"><span class="num">2</span><h3>ACTIVITY</h3><div class="place">Puttshack Charlotte</div><div class="meta">Mini Golf • Games • ⭐ 4.7</div><div class="price">$$ • about $15–$25/person</div></div>
+<div class="card"><span class="num">3</span><h3>SWEET ENDING</h3><div class="place">Dessert Spot</div><div class="meta">Dessert • Coffee • Late Night</div><div class="price">$$ • about $10–$20/person</div></div>
+<div class="summary"><div><div style="font-size:12px;color:#aaa">ESTIMATED TOTAL</div><div class="total">$68–$95</div></div><div style="text-align:right"><div style="font-size:12px;color:#aaa">TRAVEL</div><b>~12 min</b></div></div>
+<button class="action primary">📍 GET DIRECTIONS</button>
+<button class="action secondary">🔄 GIVE ME ANOTHER MOVE</button>
+<p class="small">Demo data for the prototype — live restaurant/activity data can be connected later.</p>
+</section>
+</div>
+<nav><span class="on">⌂<br>Home</span><span>♡<br>Saved</span><span>◈<br>Explore</span><span>▣<br>My Plans</span><span>○<br>Profile</span></nav>
+<script>
+document.querySelectorAll('.options').forEach(group=>{
+  group.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
+    group.querySelectorAll('button').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  });
+});
+function showResults(){document.getElementById('home').style.display='none';document.getElementById('results').classList.add('show');document.getElementById('locChip').textContent='📍 '+(document.getElementById('location').value||'Your area')}
+function showHome(){document.getElementById('results').classList.remove('show');document.getElementById('home').style.display='block'}
+</script>
+</body>
+</html>
